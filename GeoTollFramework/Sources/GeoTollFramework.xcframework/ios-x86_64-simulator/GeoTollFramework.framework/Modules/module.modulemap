@@ -1,0 +1,11 @@
+framework module GeoTollFramework {
+  umbrella header "GeoTollFramework.h"
+  export *
+
+  module * { export * }
+}
+
+module GeoTollFramework.Swift {
+  header "GeoTollFramework-Swift.h"
+  requires objc
+}
