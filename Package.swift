@@ -14,13 +14,11 @@ let package = Package(
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
-        .target(
-            name: "GeoTollFramework"),
+        // The destination of the framework you will obfuscate the code
+        .binaryTarget(name: "GeoTollFramework", path: "./Sources/GeoTollFramework.xcframework"),
         .testTarget(
             name: "GeoTollFrameworkTests",
             dependencies: ["GeoTollFramework"]
         ),
-        // The destination of the framework you will obfuscate the code
-        .binaryTarget(name: "GeoTollFramework", path: "./Sources/GeoTollFramework.xcframework")
     ]
 )
