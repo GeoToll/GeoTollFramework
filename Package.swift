@@ -17,10 +17,10 @@ let package = Package(
     ],
     dependencies: [
         // Add the SPM dependencies here
-        .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.7.0"),
-        .package(url: "https://github.com/yourkarma/JWT.git", from: "3.0.0"),
-        .package(url: "https://github.com/instacart/TrueTime.swift.git", from: "5.1.0"),
-        .package(url: "https://github.com/rwbutler/Connectivity.git", from: "6.0.0"),
+        .package(url: "https://github.com/Alamofire/Alamofire.git", .branch("main")),
+        .package(url: "https://github.com/yourkarma/JWT.git", .branch("main")),
+        .package(url: "https://github.com/instacart/TrueTime.swift.git", .branch("main")),
+        .package(url: "https://github.com/rwbutler/Connectivity.git", .branch("main")),
     ],
     targets: [
         // Define the target for your framework.
