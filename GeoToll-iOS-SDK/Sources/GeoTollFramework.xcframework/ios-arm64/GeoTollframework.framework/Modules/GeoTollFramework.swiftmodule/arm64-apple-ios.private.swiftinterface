@@ -1,0 +1,680 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.0.2 effective-5.10 (swiftlang-6.0.2.1.2 clang-1600.0.26.4)
+// swift-module-flags: -target arm64-apple-ios14.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name GeoTollFramework
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface
+import AVFAudio
+import AVFoundation
+import Alamofire
+import BackgroundTasks
+import Combine
+import CoreBluetooth
+import CoreData
+import CoreLocation
+import CoreTelephony
+import Foundation
+@_exported import GeoTollFramework
+import MapKit
+import Network
+import SQLite3
+import Security
+import Swift
+import SwiftUI
+import TrueTime
+import UIKit
+import UserNotifications
+import _Concurrency
+import _MapKit_SwiftUI
+import _StringProcessing
+import _SwiftConcurrencyShims
+@objc @_inheritsConvenienceInitializers @objcMembers open class GTTollrunManager : ObjectiveC.NSObject {
+  @objc public static let instance: GeoTollFramework.GTTollrunManager
+  @objc public func start()
+  @objc public func stop()
+  @objc public func stopTollRun()
+  @objc public func stopTempTollrun()
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objcMembers open class GTGeofenceMonitor {
+  public static let shared: GeoTollFramework.GTGeofenceMonitor
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers @_Concurrency.MainActor @preconcurrency open class GTLocationManager : ObjectiveC.NSObject, CoreLocation.CLLocationManagerDelegate, UIKit.UIApplicationDelegate {
+  @objc @_Concurrency.MainActor @preconcurrency public static let sharedInstance: GeoTollFramework.GTLocationManager
+  @objc @_Concurrency.MainActor @preconcurrency public var locationManager: CoreLocation.CLLocationManager?
+  @objc @_Concurrency.MainActor @preconcurrency public func requestWhileInUsePermission()
+  @objc @_Concurrency.MainActor @preconcurrency public func requestAlwaysPermission()
+  @objc @_Concurrency.MainActor @preconcurrency public func start()
+  @objc @_Concurrency.MainActor @preconcurrency public func stop()
+  @objc @_Concurrency.MainActor @preconcurrency public func sendPayload()
+  @objc @_Concurrency.MainActor @preconcurrency public func requestLocationUpdate()
+  @objc @_Concurrency.MainActor @preconcurrency public func getLatestLocation() -> CoreLocation.CLLocation?
+  @objc @_Concurrency.MainActor @preconcurrency public func isLocationAuthAlwaysAllow() -> Swift.Bool
+  @objc @_Concurrency.MainActor @preconcurrency public func isLocationAuthWhileInUse() -> Swift.Bool
+  @_Concurrency.MainActor @preconcurrency @objc public func locationManagerDidChangeAuthorization(_ manager: CoreLocation.CLLocationManager)
+  @_Concurrency.MainActor @preconcurrency @objc public func locationManager(_ manager: CoreLocation.CLLocationManager, didUpdateLocations locations: [CoreLocation.CLLocation])
+  @_Concurrency.MainActor @preconcurrency @objc public func locationManager(_ manager: CoreLocation.CLLocationManager, didFailWithError error: any Swift.Error)
+  @_Concurrency.MainActor @preconcurrency @objc public func locationManager(_ manager: CoreLocation.CLLocationManager, didExitRegion region: CoreLocation.CLRegion)
+  @objc @_Concurrency.MainActor @preconcurrency public func processNewLocationUpdateTrigger()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers open class GTApiRequest : ObjectiveC.NSObject {
+  @objc public static let instance: GeoTollFramework.GTApiRequest
+  public func request(method: Alamofire.HTTPMethod, param: Any?, url: Swift.String, shouldDownload: Swift.Bool, fileName: Swift.String, completion: @escaping (Swift.Result<Any, GeoTollFramework.GTErrors>) -> Swift.Void)
+  @objc deinit
+}
+public protocol NotificationHandlerDelegate : AnyObject {
+  func handleNotification(withIdentifier identifier: Swift.String)
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers open class GTNotificationManager : ObjectiveC.NSObject {
+  @objc public static let sharedInstance: GeoTollFramework.GTNotificationManager
+  public var delegate: (any GeoTollFramework.NotificationHandlerDelegate)?
+  @objc public var center: UserNotifications.UNUserNotificationCenter
+  @objc public func requestAuthorization(completion: @escaping (Swift.Bool) -> Swift.Void)
+  @objc public func getCurrentAuthorizationStatus(completion: @escaping (Swift.Bool) -> Swift.Void)
+  @objc public func sendLocalNotification(title: Swift.String, body: Swift.String, delay: Foundation.TimeInterval = 0.1, identifier: Swift.String)
+  @objc deinit
+}
+extension GeoTollFramework.GTNotificationManager : UserNotifications.UNUserNotificationCenterDelegate {
+  @objc dynamic public func userNotificationCenter(_ center: UserNotifications.UNUserNotificationCenter, willPresent notification: UserNotifications.UNNotification, withCompletionHandler completionHandler: @escaping (UserNotifications.UNNotificationPresentationOptions) -> Swift.Void)
+  @objc dynamic public func userNotificationCenter(_ center: UserNotifications.UNUserNotificationCenter, didReceive response: UserNotifications.UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Swift.Void)
+}
+@objc @_inheritsConvenienceInitializers @objcMembers open class GTAudioSession : ObjectiveC.NSObject {
+  @objc public static let sharedInstance: GeoTollFramework.GTAudioSession
+  @objc public func initializeAVSession()
+  @objc public func stop()
+  public func getAvailableInputsAndOutputRoutes(includeBuiltInRoute: Swift.Bool = true) -> (outputs: [AVFAudio.AVAudioSessionPortDescription], inputs: [AVFAudio.AVAudioSessionPortDescription])
+  public func checkProcessConnectedAudioRoute() -> Swift.Int?
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers open class GTTokenManager : ObjectiveC.NSObject {
+  @objc public static let instance: GeoTollFramework.GTTokenManager
+  @objc public func refreshToken(completion: @escaping (Swift.Bool) -> Swift.Void)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objcMembers open class JSON {
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers open class GTAPIManager : ObjectiveC.NSObject {
+  @objc public static let sharedInstance: GeoTollFramework.GTAPIManager
+  public func performPOSTAction(url: Swift.String, params: Any?, token: Swift.String?, shouldDownload: Swift.Bool = false, fileName: Swift.String = "", isVehicle: Swift.Bool = false, completion: @escaping (Swift.Result<Any, GeoTollFramework.GTErrors>) -> Swift.Void)
+  public func performGETAction(url: Swift.String, params: Any?, token: Swift.String?, shouldDownload: Swift.Bool = false, completion: @escaping (Swift.Result<Any, GeoTollFramework.GTErrors>) -> Swift.Void)
+  public func performDELETEAction(url: Swift.String, params: Any?, token: Swift.String?, shouldDownload: Swift.Bool = false, completion: @escaping (Swift.Result<Any, GeoTollFramework.GTErrors>) -> Swift.Void)
+  public func performPUTAction(url: Swift.String, params: Any?, token: Swift.String?, shouldDownload: Swift.Bool = false, completion: @escaping (Swift.Result<Any, GeoTollFramework.GTErrors>) -> Swift.Void)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers open class GTLocationProducer : ObjectiveC.NSObject {
+  @objc public static let instance: GeoTollFramework.GTLocationProducer
+  @objc override dynamic public init()
+  @objc public func setROIState(state: GeoTollFramework.ROIState)
+  @objc public func buildGPSLogs(location: CoreLocation.CLLocation)
+  @objc public func sendWithInterval(_ location: CoreLocation.CLLocation)
+  @objc public func fetchAndSendGPSPayload(completion: @escaping () -> Swift.Void)
+  @objc public func fetchAndSendRUCPayload(completion: @escaping () -> Swift.Void)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers open class APIConfig : ObjectiveC.NSObject {
+  @objc public static let instance: GeoTollFramework.APIConfig
+  @objc public func getAuthURL() -> Swift.String
+  @objc public func getrevokeAccessURL() -> Swift.String
+  @objc public func getRegisterURL() -> Swift.String
+  @objc public func getinviteRegisterURL() -> Swift.String
+  @objc public func getRequestPasswordResetURL(_ email: Swift.String) -> Swift.String
+  @objc public func getProfileUpdateURL() -> Swift.String
+  @objc public func getSetProfileEmailName() -> Swift.String
+  @objc public func getPhoneURL() -> Swift.String
+  @objc public func getSendOtpURL() -> Swift.String
+  @objc public func getVerifyOtpURL() -> Swift.String
+  @objc public func getPasswordURL() -> Swift.String
+  @objc public func getAddressURL() -> Swift.String
+  @objc public func getValidateVehicleURL() -> Swift.String
+  @objc public func getAddValidatedVehicleURL(_ vehicleId: Swift.String) -> Swift.String
+  @objc public func getRejectValidatedVehicleURL(_ vehicleId: Swift.String) -> Swift.String
+  @objc public func getDeleteUserVehicleURL(_ vehicleId: Swift.String) -> Swift.String
+  @objc public func getInviteSubuserURL() -> Swift.String
+  @objc public func getSubUsersURL() -> Swift.String
+  @objc public func getDeleteSubuserURL(_ accountID: Swift.String) -> Swift.String
+  @objc public func getReactivateSubuserURL(_ accountID: Swift.String) -> Swift.String
+  @objc public func getPrivacyPolicyURL() -> Swift.String
+  @objc public func getTermsConditionURL() -> Swift.String
+  @objc public func getOdometerHistoryURL(_ vehicleId: Swift.String) -> Swift.String
+  @objc public func getOdometerURL(_ vehicleId: Swift.String) -> Swift.String
+  @objc public func getVinURL(_ vehicleId: Swift.String) -> Swift.String
+  @objc public func getFaqsURL() -> Swift.String
+  @objc public func getHelpURL() -> Swift.String
+  @objc public func getContactUsURL() -> Swift.String
+  @objc public func getParticipantAgreementURL() -> Swift.String
+  @objc public func getOcrFilterURL(_ vehicleId: Swift.String) -> Swift.String
+  @objc public func getSubmitReportURL() -> Swift.String
+  @objc public func getUpdatePasswordURL() -> Swift.String
+  @objc public func getTripHistoryURL() -> Swift.String
+  @objc public func getTransactionHistoryURL() -> Swift.String
+  @objc public func getMileageHistoryURL() -> Swift.String
+  @objc public func getUpdateInviteURL() -> Swift.String
+  @objc public func getUpdateDeviceTokenURL() -> Swift.String
+  @objc public func getUpdateUserVehicleURL(_ vehicleId: Swift.String) -> Swift.String
+  @objc public func getPaymentMethodsURL() -> Swift.String
+  @objc public func getAddressesURL() -> Swift.String
+  @objc public func getFinanceConfig() -> Swift.String
+  @objc public func getLookUpBankRoutingNumber() -> Swift.String
+  @objc public func getDeleteAddresURL() -> Swift.String
+  @objc public func getAddPaymentMethodURL() -> Swift.String
+  @objc public func getAddAddressURL() -> Swift.String
+  @objc public func getAccountStatementsURL() -> Swift.String
+  @objc public func getAccountStatementPDFURL() -> Swift.String
+  @objc public func getPaymentTransactionsURL() -> Swift.String
+  @objc public func getTollRunURL() -> Swift.String
+  @objc public func getUserAuditURL() -> Swift.String
+  @objc public func getGeofenceURL() -> Swift.String
+  @objc public func getRefreshTokenURL() -> Swift.String
+  @objc public func getGPSPayloadURL() -> Swift.String
+  @objc public func getETollingPayloadURL() -> Swift.String
+  @objc public func getUserNotificationsURL() -> Swift.String
+  @objc public func getUserLogURL() -> Swift.String
+  @objc public func getUserVehicles() -> Swift.String
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers open class GTGlobalStateLogging : ObjectiveC.NSObject {
+  @objc public static let sharedInstance: GeoTollFramework.GTGlobalStateLogging
+  @objc public var applicationStateGS: Swift.String {
+    @objc get
+    @objc set(appState)
+  }
+  @objc public var appStateGS: Swift.Int {
+    @objc get
+    @objc set(stateApp)
+  }
+  @objc public var sequenceGS: Foundation.NSNumber {
+    @objc get
+    @objc set(number)
+  }
+  @objc public var logSequenceGS: Foundation.NSNumber {
+    @objc get
+    @objc set(number)
+  }
+  @objc public var queSizeGS: Swift.String {
+    @objc get
+    @objc set(queSizeState)
+  }
+  @objc public var distanceFromLastLocationGS: Swift.String {
+    @objc get
+    @objc set(distanceFromLastLocationState)
+  }
+  @objc public var locationAccuracyGS: Swift.String {
+    @objc get
+    @objc set(locationAccuracyState)
+  }
+  @objc public var latLongGS: CoreLocation.CLLocation {
+    @objc get
+    @objc set(latLongState)
+  }
+  @objc public var latLongTimeGS: Swift.String {
+    @objc get
+    @objc set(latLongTimeState)
+  }
+  @objc public var lastLatLongGS: CoreLocation.CLLocation {
+    @objc get
+    @objc set(lastLatLongState)
+  }
+  @objc public var lastLatLongTimeGS: Swift.String {
+    @objc get
+    @objc set(lastLatLongTimeState)
+  }
+  @objc public var totalETollRecordsSendedGS: Swift.Int32 {
+    @objc get
+    @objc set(totalETollRecordsSendedState)
+  }
+  @objc public var totalRUCRecordsSendedGS: Swift.Int32 {
+    @objc get
+    @objc set(totalRUCRecordsSendedState)
+  }
+  @objc public var totalRecordCollectedPolygonGS: Swift.Int32 {
+    @objc get
+    @objc set(totalRecordCollectedPolygonState)
+  }
+  @objc public var totalRecordCollectedALLGS: Swift.Int32 {
+    @objc get
+    @objc set(totalRecordCollectedALLState)
+  }
+  @objc public var tollrunActiveGS: Swift.String {
+    @objc get
+    @objc set(tollrunActiveState)
+  }
+  @objc public var tollrunActiveSegmentGS: Swift.String {
+    @objc get
+    @objc set(tollrunActiveSegmentState)
+  }
+  @objc public var regionPolygonGS: Swift.String {
+    @objc get
+    @objc set(regionPolygonState)
+  }
+  @objc public var plazaPolygonGS: Swift.String {
+    @objc get
+    @objc set(plazaPolygonState)
+  }
+  @objc public var gantryPolygonGS: Swift.String {
+    @objc get
+    @objc set(gantryPolygonState)
+  }
+  @objc public var distanceFilterGantryGS: Swift.String {
+    @objc get
+    @objc set(distanceFilterGantryState)
+  }
+  @objc public var distanceFilterGS: Swift.String {
+    @objc get
+    @objc set(distanceFilterState)
+  }
+  @objc public var internetAvailbleGS: Swift.String {
+    @objc get
+    @objc set(internetAvailbleState)
+  }
+  @objc public var createdTimeGS: Swift.String {
+    @objc get
+    @objc set(createdTimeState)
+  }
+  @objc public var currentTimeGS: Swift.String {
+    @objc get
+    @objc set(currentTimeState)
+  }
+  @objc public var currentLocationPremissionGS: Swift.String {
+    @objc get
+    @objc set(permission)
+  }
+  @objc public var currentBluetoothPremissionGS: Swift.String {
+    @objc get
+    @objc set(permission)
+  }
+  @objc public var currentNotificationPremissionGS: Swift.String {
+    @objc get
+    @objc set(permission)
+  }
+  @objc public var intervalTimeGS: Swift.String {
+    @objc get
+    @objc set(intervalTimeState)
+  }
+  @objc public var currentSpeedGS: Swift.Double {
+    @objc get
+    @objc set(currentSpeedState)
+  }
+  @objc public var currentBatteryLevelGS: Swift.Double {
+    @objc get
+    @objc set(currentBatteryState)
+  }
+  @objc public func changeLocationServiceStatus(status: Swift.String, time: Swift.String)
+  @objc public func changeCorrdinatesStatus(currentLatLong: CoreLocation.CLLocation, time: Swift.String, isFromPL: Swift.Bool)
+  @objc public func calculateDistance(latestLatLong: CoreLocation.CLLocation)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers open class GTUserAuditManager : ObjectiveC.NSObject {
+  @objc public static let sharedInstance: GeoTollFramework.GTUserAuditManager
+  @objc public func validateAndStoreUserAudit(event: Swift.String, value: Swift.String, value2: Swift.String = "", tollrunID: Swift.String = String(GTSession.shared.getTollRunId()))
+  @objc public func sendUserAuditData(completion: (() -> Swift.Void)? = nil)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers open class GTCameraManager : ObjectiveC.NSObject {
+  @objc public static let shared: GeoTollFramework.GTCameraManager
+  @objc public func getCurrentAuthorizationStatus() -> Swift.Bool
+  @objc public func requestAccess(completion: @escaping (Swift.Bool) -> Swift.Void)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers open class CoreDataManager : ObjectiveC.NSObject {
+  @objc public static let shareInstance: GeoTollFramework.CoreDataManager
+  @objc public func addUserAudit(event: Swift.String, val: Swift.String, val2: Swift.String = "", UTCTime: Swift.String, userTime: Swift.String, vehicleId: Swift.String, tollrunId: Swift.String)
+  @objc public func addGPSPayLoad(jsonString: Foundation.NSString, tollRunID: Foundation.NSString, sequenceNum: Foundation.NSNumber, isTemp: Swift.Bool)
+  @objc public func addGPSETollPayLoad(jsonString: Foundation.NSString, sequenceNum: Foundation.NSNumber, time: Foundation.NSString, tollrunId: Foundation.NSString, isTemp: Swift.Bool)
+  @objc public func addDebugLog(jsonString: Foundation.NSString, sequnceNum: Swift.Double, time: Swift.String)
+  @objc public func fetchUserAudit() -> [Foundation.NSMutableDictionary]
+  @objc public func fetchRUCGPSPayload(_ id: Swift.String) -> [Foundation.NSMutableDictionary]
+  @objc public func fetchRUCTollRunIdArray() -> [Swift.String]
+  @objc public func fetchGPSETollPayload() -> [Foundation.NSMutableDictionary]
+  @objc public func fetchDebugLogs() -> [Foundation.NSMutableDictionary]
+  @objc public func updateRucGpsPayload(tempTollRun: Swift.String, tollRunId: Swift.String, completion: @escaping () -> Swift.Void)
+  @objc public func updateETollGpsPayload(tempTollRun: Foundation.NSNumber, tollRunId: Foundation.NSNumber, completion: @escaping () -> Swift.Void)
+  @objc public func updateETollGpsPayloadWithSequence(tempTollRun: Swift.String, tollRunId: Foundation.NSNumber, sequence: Foundation.NSNumber)
+  @objc public func deleteUserAudit(persons: [Foundation.NSMutableDictionary])
+  @objc public func deleteRUCGPSPayload(tollRunId: Swift.String, payloads: Foundation.NSMutableArray)
+  @objc public func deleteGPSETollPayload(persons: Foundation.NSDictionary, time: Swift.String, sequence: Swift.UInt32)
+  @objc public func deleteDebugLogPayload(sequence: [Swift.String : Any])
+  @objc public func deleteOldDebugLogs()
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objcMembers open class KeychainManager {
+  public static let instance: GeoTollFramework.KeychainManager
+  @objc public func saveUUID(uuid: Foundation.UUID) -> Swift.Bool
+  @objc public func fetchUUID() -> Foundation.UUID?
+  @objc public func deleteUUID() -> Swift.Bool
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers @_Concurrency.MainActor @preconcurrency open class GTSystemMonitor : ObjectiveC.NSObject, UIKit.UIApplicationDelegate {
+  @objc @_Concurrency.MainActor @preconcurrency public static let sharedInstanceUtility: GeoTollFramework.GTSystemMonitor
+  @objc @_Concurrency.MainActor @preconcurrency public func startAudit()
+  @objc @_Concurrency.MainActor @preconcurrency public func stopAudit()
+  @objc @_Concurrency.MainActor @preconcurrency public func isInternetAvailable() -> Swift.Bool
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers open class GTBluetoothManager : ObjectiveC.NSObject, CoreBluetooth.CBCentralManagerDelegate, CoreBluetooth.CBPeripheralDelegate {
+  @objc public static let sharedInstance: GeoTollFramework.GTBluetoothManager
+  @objc public var isBluetoothPermissionGranted: Swift.Bool {
+    @objc get
+  }
+  @objc override dynamic public init()
+  @objc public func requestPermission()
+  @objc public func stop()
+  @objc public func redirectToSettings(completion: @escaping () -> Swift.Void)
+  @objc public func getBluetoothAuthorizationStatus() -> Swift.Bool
+  @objc public func centralManagerDidUpdateState(_ central: CoreBluetooth.CBCentralManager)
+  @objc public func centralManager(_ central: CoreBluetooth.CBCentralManager, willRestoreState dict: [Swift.String : Any])
+  @objc deinit
+}
+extension UIKit.UIDevice {
+  @_Concurrency.MainActor @preconcurrency public var modelName: Swift.String {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers open class TrueTimeService : ObjectiveC.NSObject {
+  @objc public static let shared: GeoTollFramework.TrueTimeService
+  @objc public func start()
+  @objc public func getCurrentTime() -> Foundation.Date?
+  public func getCurrentTimeStrings() -> (userTime: Swift.String, utcTime: Swift.String)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers open class GTNotifications : ObjectiveC.NSObject {
+  @objc public static let instance: GeoTollFramework.GTNotifications
+  public func showNotification(alert type: GeoTollFramework.Notifications)
+  @objc override dynamic public init()
+  @objc deinit
+}
+public enum Notifications {
+  case locationPermission
+  case bluetoothPermission
+  case bluetoothOff
+  case internetOff
+  case tollrunStart
+  case tempTollrunStart
+  case tollrunStartFail
+  case tollrunStop
+  case tempTollrunStop
+  case tollrunStopFail
+  case checkLocationPermission
+  case checkBluetoothPermission
+  case bluetoothManagerRestore
+  case silentNotificationTriggered
+  case audioRouteChanged(address: Swift.String)
+}
+public enum AuditEventCode : Swift.String {
+  case DEVICE_INTERNET_CONNECTION
+  case DEVICE_NETWORK_CHANGE
+  case DEVICE_BATTERY_LIFE
+  case DEVICE_AIRPLANE_MODE
+  case DEVICE_POWER_SAVER_MODE
+  case TOLLRUN_BLUETOOTH_CONNECTED
+  case TOLLRUN_BLUETOOTH_DISCONNECTED
+  case TOLLRUN_REQUESTING_START_TOLLRUN
+  case TOLLRUN_REQUESTING_STOP_TOLLRUN
+  case TOLLRUN_STARTED_SUCCESSFULLY
+  case TOLLRUN_STOPPED_SUCCESSFULLY
+  case TOLLRUN_ROUTE_CHANGE
+  case TOLLRUN_GPS_FIRST_LOG
+  case TOLLRUN_GPS_LOGS_SUBMISSION_RUC
+  case TOLLRUN_GPS_LOGS_SUBMISSION_ETOLL
+  case TOLLRUN_GPS_LOGS_SUBMITTED_RUC
+  case TOLLRUN_GPS_LOGS_SUBMITTED_ETOLL
+  case TOLLRUN_VEHICLE_SPEED
+  case AVAILABLE_INPUT_OUTPUT_ROUTES
+  case APP_SETUP_CAMERA_PERM
+  case APP_SETUP_NOTIFICATION_PERM
+  case APP_SETUP_CAMERA_PERM_NOT_PROVIDED
+  case APP_SETUP_NOTIFICATION_PERM_NOT_PROVIDED
+  case APP_FG_NOTIFICATION_PERM
+  case APP_FG_CAMERA_PERM
+  case APP_BG_CAMERA_PERM
+  case APP_BG_NOTIFICATION_PERM
+  case APP_TERMINATED_CAMERA_PERM
+  case APP_TERMINATED_NOTIFICATION_PERM
+  case VEHICLE_SIGNIFICANT_LOCATION_TRIGGERED
+  case APP_STATE_CHANGE_BG
+  case APP_STATE_CHANGE_FG
+  case APP_STATE_CHANGE_TERMINATE
+  case APP_STATE_CHANGE_TERMINATE_BY_SDK
+  case API_ERROR
+  case ACCESS_TOKEN_REFRESHED
+  case DEVICE_CAMERA_PERM_REVOKED
+  case DEVICE_NOTIFICATION_PERM_REVOKED
+  case DEVICE_CAMERA_PERM_GRANTED
+  case DEVICE_NOTIFICATION_PERM_GRANTED
+  case FCM_TOKEN_UPDATE_REQUESTED
+  case FCM_TOKEN_UPDATE_COMPLETED
+  case ENTERING_OUTER_GEOFENCE
+  case EXITING_OUTER_GEOFENCE
+  case ENTERING_PLAZA_GEOFENCE
+  case EXITING_PLAZA_GEOFENCE
+  case ENTERING_GANTRY_GEOFENCE
+  case EXITING_GANTRY_GEOFENCE
+  case PERM_DEVICE_LOC_ALWAYS_GRANTED
+  case PERM_DEVICE_LOC_ALWAYS_REVOKED
+  case PERM_DEVICE_BLE_GRANTED
+  case PERM_DEVICE_BLE_REVOKED
+  case PERM_DEVICE_BLE_UNKNOWN
+  case VIN_IMAGE_METADATA
+  case ODOMETER_IMAGE_METADATA
+  case MOBILE_APPLICATION_CRASH_DETECTED
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers @objcMembers open class Helper : ObjectiveC.NSObject {
+  @objc public static let sharedInstance: GeoTollFramework.Helper
+  @objc public var isTokenRefreshApiCallRunning: Swift.Bool
+  @objc public var isStartTollRunApiCallRunning: Swift.Bool
+  @objc public var isStopTollRunApiRunning: Swift.Bool
+  @objc public var isRUCPayloadSending: Swift.Bool
+  @objc public var iseTollPayloadSending: Swift.Bool
+  @objc public var isSilentNotification: Swift.Bool
+  @objc public var isUserAuditSending: Swift.Bool
+  @objc public var shouldTerminate: Swift.Bool
+  @objc final public let builtInPortTypes: Swift.Set<AVFAudio.AVAudioSession.Port>
+  @objc override dynamic public init()
+  @objc public func notificationUtil(notificationBody body: Swift.String, identifier: Swift.String, logLevel: Swift.UInt32, checkSilent: Swift.Bool)
+  @objc public func convertToLocal(timeStamp: Swift.String) -> Swift.String
+  @objc public func convertDateToString(timeStamp: Foundation.Date) -> Swift.String
+  @objc public func convertToUTC(date: Foundation.Date) -> Swift.String
+  @objc public func convertToMilliseconds(date: Swift.String) -> Swift.Int
+  @objc public func convertMillisecondsToDate(milliseconds: Swift.Int64) -> Swift.String
+  @objc public func printAuditLog(eventSource: Swift.String, event: Swift.String, message: Swift.String, eventClass: Swift.String, eventMethod: Swift.String, level: Swift.String)
+  @objc public func printLog(eventSource: Swift.String, event: Swift.String, message: Swift.String, eventClass: Swift.String, eventMethod: Swift.String, level: Swift.String)
+  @objc public func printLog(eventSource: Swift.String, event: Swift.String, message: Swift.String, eventClass: Swift.String, eventMethod: Swift.String, createdAt: Swift.String, sequence: Swift.String, logStatus: Swift.String, level: Swift.String)
+  @objc public func printLog(eventSource: Swift.String, event: Swift.String, message: Swift.String, eventClass: Swift.String, eventMethod: Swift.String, createdAt: Swift.String, sequence: Swift.String, logStatus: Swift.String, serverAnkTime: Swift.String, level: Swift.String)
+  @objc public func storeLocations(eventSource: Swift.String, event: Swift.String, message: Swift.String, eventClass: Swift.String, eventMethod: Swift.String, sequenceTime: Swift.String, sequence: Swift.String, sequenceStatus: Swift.String, sequenceAnkTime: Swift.String, isLogForAudit: Swift.Bool, level: Swift.String)
+  @objc public func removeDataBase()
+  @objc public func getDocumentsDirectory() -> Foundation.NSString
+  @objc public func shareLocationCSV()
+  @objc public func fetchAndSendLogs()
+  @objc public func sendUserAuditLogs()
+  @objc public func getDeviceInfoParameters(requestParam: Foundation.NSMutableDictionary) -> Foundation.NSMutableDictionary
+  @objc public func getDeviceUUID() -> Swift.String
+  @objc public func createJSONString(_ params: Any) -> Swift.String
+  @objc public func jsonStringFromDictionary(_ dictionary: [Swift.String : Any]?) -> Foundation.NSString
+  @objc public func convertJSONStringToDictionary(jsonString: Swift.String) -> Foundation.NSMutableDictionary?
+  @objc public func appIsActive()
+  @objc public func appEnteredBackground()
+  @objc public func appWillTerminate()
+  @objc public func launchedDueToSignificantLocation()
+  @objc public func launchedWithOptions()
+  @objc public func exitingOuterGeofence()
+  @objc public func exitingPlazaGeofence()
+  @objc public func exitingGantryGeofence()
+  @objc public func enteringOuterGeofence()
+  @objc public func enteringPlazaGeofence()
+  @objc public func enteringGantryGeofence()
+  @objc public func setBatteryLevel(_ level: Swift.Double)
+  @objc public func sendNotification(_ notification: GeoTollFramework.GTNotification)
+  @objc public func fetchUserVehicle(isVehicle: Swift.Bool = false, vehicleID: Swift.Int = 0, completion: @escaping (Any?, Swift.String?) -> Swift.Void)
+  @objc public func recordVehicleSpeedAudit(_ speed: Swift.String, _ forceLog: Swift.Bool = false)
+  @objc public func removeType(_ uid: Swift.String) -> Swift.String
+  @objc public func getUID(for input: AVFAudio.AVAudioSessionPortDescription) -> Swift.String
+  @objc public func logSDKStart()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers open class GTUtility : ObjectiveC.NSObject {
+  @objc public static let sharedInstance: GeoTollFramework.GTUtility
+  @objc override dynamic public init()
+  @objc public func startFramework()
+  @objc public func startTimer()
+  @objc public func stopTimer()
+  @objc public func checkEtollTollrun()
+  @objc public func jsonStringFromDictionary(dictionary: Foundation.NSDictionary) -> Swift.String
+  @objc public func terminate()
+  @objc public func checkStartOrStopTollRun()
+  public func updateRouteChangeNotification(withRoutes routes: (outputs: [AVFAudio.AVAudioSessionPortDescription], inputs: [AVFAudio.AVAudioSessionPortDescription]))
+  @objc public func checkAndManageTollRun() -> Swift.Bool
+  @objc public func checkAndStopTollrun(_ location: CoreLocation.CLLocation)
+  @objc public func logCurrentAvailableAudioRoutes(_ recordingState: Swift.String)
+  @objc public func checkAndRefreshToken(completion: ((Swift.Bool) -> Swift.Void)? = nil)
+  @objc public func checkRefreshTokenExpiration() -> Swift.Bool
+  @objc public func storeErrorAsAudit(error: Swift.String, url: Swift.String)
+  @objc public func checkLocationAccuracy(_ location: CoreLocation.CLLocation) -> Swift.Bool
+  @objc public func prepareDeviceInfo() -> Foundation.NSMutableDictionary
+  @objc public func logUserOut()
+  @objc public func sendDebugAndAuditLogs()
+  @objc public func resetTollRunId()
+  @objc deinit
+}
+public enum GTErrors : Swift.Error {
+  case decodingError(any Swift.Error)
+  case apiError(GeoTollFramework.APIError)
+  case noInternet(GeoTollFramework.APIError)
+}
+extension GeoTollFramework.GTErrors : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+public struct APIError : Swift.Error, Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @objc(DebugLog) public class DebugLog : CoreData.NSManagedObject {
+  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
+  @objc deinit
+}
+extension GeoTollFramework.DebugLog {
+  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<GeoTollFramework.DebugLog>
+  @objc @NSManaged dynamic public var debugLog: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var sequence: Swift.Double {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var timeStamp: Swift.String? {
+    @objc get
+    @objc set
+  }
+}
+extension GeoTollFramework.DebugLog : Swift.Identifiable {
+  public typealias ID = Swift.ObjectIdentifier
+}
+@_inheritsConvenienceInitializers @objc(GPSETollPayLoad) public class GPSETollPayLoad : CoreData.NSManagedObject {
+  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
+  @objc deinit
+}
+extension GeoTollFramework.GPSETollPayLoad {
+  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<GeoTollFramework.GPSETollPayLoad>
+  @objc @NSManaged dynamic public var isTemp: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var payload: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var sequenceNum: Swift.Int32 {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var timeStamp: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var tollRunId: Swift.String? {
+    @objc get
+    @objc set
+  }
+}
+extension GeoTollFramework.GPSETollPayLoad : Swift.Identifiable {
+  public typealias ID = Swift.ObjectIdentifier
+}
+@_inheritsConvenienceInitializers @objc(GPSRUCPayLoad) public class GPSRUCPayLoad : GeoTollFramework.UserAudit {
+  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
+  @objc deinit
+}
+extension GeoTollFramework.GPSRUCPayLoad {
+  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<GeoTollFramework.GPSRUCPayLoad>
+  @objc @NSManaged dynamic public var isTemp: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var payload: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var sequenceNum: Swift.Int32 {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var tollRunId: Swift.String? {
+    @objc get
+    @objc set
+  }
+}
+@_inheritsConvenienceInitializers @objc(UserAudit) public class UserAudit : CoreData.NSManagedObject {
+  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
+  @objc deinit
+}
+extension GeoTollFramework.UserAudit {
+  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<GeoTollFramework.UserAudit>
+  @objc @NSManaged dynamic public var event: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var tollrunId: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var usertime: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var utcTime: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var val: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var val2: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var vehicleId: Swift.String? {
+    @objc get
+    @objc set
+  }
+}
+extension GeoTollFramework.UserAudit : Swift.Identifiable {
+  public typealias ID = Swift.ObjectIdentifier
+}
+extension GeoTollFramework.GTLocationManager : Swift.Sendable {}
+extension GeoTollFramework.GTSystemMonitor : Swift.Sendable {}
+extension GeoTollFramework.AuditEventCode : Swift.Equatable {}
+extension GeoTollFramework.AuditEventCode : Swift.Hashable {}
+extension GeoTollFramework.AuditEventCode : Swift.RawRepresentable {}
