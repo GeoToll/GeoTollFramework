@@ -17,9 +17,9 @@ let package = Package(
     ],
     dependencies: [
         // Add the SPM dependencies here
-        .package(url: "https://github.com/Alamofire/Alamofire.git", .branch("main")),
-        .package(url: "https://github.com/yourkarma/JWT.git", .branch("main")),
-        .package(url: "https://github.com/instacart/TrueTime.swift.git", .branch("main")),
+        .package(url: "https://github.com/Alamofire/Alamofire.git", .branch("master")),
+        .package(url: "https://github.com/yourkarma/JWT.git", .branch("master")),
+        .package(url: "https://github.com/instacart/TrueTime.swift.git", .branch("master")),
         .package(url: "https://github.com/rwbutler/Connectivity.git", .branch("main")),
     ],
     targets: [
