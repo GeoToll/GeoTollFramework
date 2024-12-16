@@ -20,12 +20,12 @@ let package = Package(
         .target(
             name: "GeoTollFramework",
             dependencies: [],
-            path: "./Sources/GeoTollFramework.xcframework"
+            path: "./iOS/Sources/GeoTollFramework.xcframework"
         ),
         .testTarget(
             name: "GeoTollFrameworkTests",
             dependencies: ["GeoTollFramework"],
-            path: "Tests/GeoTollFrameworkTests"
+            path: "iOS/Tests/GeoTollFrameworkTests"
         ),
     ]
 )
