@@ -1,4 +1,4 @@
-// swift-tools-version: 6.0
+// swift-tools-version:5.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -32,13 +32,13 @@ let package = Package(
                 "TrueTime",
                 "Connectivity",
             ],
-            path: "./Sources/GeoTollFramework.xcframework"
+            path: "./iOS/Sources/GeoTollFramework.xcframework"
         ),
         // Define a test target for your framework.
         .testTarget(
             name: "GeoTollFrameworkTests",
             dependencies: ["GeoTollFramework"],
-            path: "Tests/GeoTollFrameworkTests"
+            path: ".iOS/Tests/GeoTollFrameworkTests"
         ),
     ]
 )
